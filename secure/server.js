@@ -8,6 +8,7 @@ app.use(cors());
 
 const allowedIPs = process.env.ALLOWED_IPS ? process.env.ALLOWED_IPS.split(',') : [];
 
+// POST route to check IP
 app.post('/check-ip', (req, res) => {
   const userIP = req.body.ip;
   console.log("Checking IPv4:", userIP);
@@ -17,6 +18,11 @@ app.post('/check-ip', (req, res) => {
   } else {
     return res.json({ access: false });
   }
+});
+
+// GET route to confirm server is running
+app.get('/status', (req, res) => {
+  res.json({ message: 'Server is up and running!' });
 });
 
 const PORT = process.env.PORT || 5000;
