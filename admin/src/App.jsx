@@ -21,7 +21,7 @@ function App() {
         console.log("User IPv4:", userIP); // Log the IPv4
 
         // Now, send the IPv4 to the backend to check access
-        const checkResponse = await fetch('http://127.0.0.1:5000/check-ip', {
+        const checkResponse = await fetch(`${process.env.REACT_APP_API_URL}/check-ip`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -33,13 +33,14 @@ function App() {
         setIsAllowed(checkData.access); // Update state based on response
       } catch (error) {
         console.error('Error fetching user IP:', error);
-        setIsAllowed(false);
+        setIsAllowed(false); // Set access to false if an error occurs
       }
     };
 
     fetchUserIPv4();
   }, []);
 
+  // Display appropriate messages based on the access status
   if (isAllowed === null) return <h2>Checking access...</h2>;
   if (!isAllowed) return <h2>Access Denied. You are not allowed to view this page.</h2>;
 
