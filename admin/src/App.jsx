@@ -10,10 +10,14 @@ import './App.css';
 function App() {
   const [isAllowed, setIsAllowed] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL; // Accessing the environment variable with VITE_ prefix
+  console.log("API URL from .env:", API_URL);
+
   useEffect(() => {
     // Function to fetch only IPv4 and check access
     const fetchUserIPv4 = async () => {
       try {
+        console.log("Fetching user IP...");
         const response = await fetch('https://api4.ipify.org?format=json'); // Fetch only IPv4
         const data = await response.json();
         const userIP = data.ip; // Get the IPv4 address
@@ -21,7 +25,7 @@ function App() {
         console.log("User IPv4:", userIP); // Log the IPv4
 
         // Now, send the IPv4 to the backend to check access
-        const checkResponse = await fetch(`${process.env.REACT_APP_API_URL}/check-ip`, {
+        const checkResponse = await fetch(`${API_URL}/check-ip`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
