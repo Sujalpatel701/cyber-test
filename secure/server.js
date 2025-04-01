@@ -22,7 +22,7 @@ app.post('/check-ip', (req, res) => {
 
 // GET route to confirm server is running
 app.get('/status', (req, res) => {
-  res.json({ message: 'Server is up and running!' });
+  res.json({ message: 'Server is perfect' });
 });
 
 const PORT = process.env.PORT || 5000;
